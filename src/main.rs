@@ -1,6 +1,13 @@
 use std::io;
 use roots::Roots;
-// hi
+
+enum EquationType {
+    Linear,
+    Quadratic,
+    Cubic,
+    Quartic
+}
+
 fn vars(name: &str) -> f64 {
     loop {let mut var = String::new();
         println!("Enter a value for {name}:");
@@ -56,38 +63,30 @@ fn print_sols(sol: Roots<f64>) {
 
 fn main() {
     let clearscreen = "\x1b[2J";
-    let mut eq: u32 = 0;
-    if eq == 0 {};
-       loop {
+    let eq = loop {
         println!("Enter a number!\n1: Linear\n2: Quadratic\n3: Cubic\n4: Quartic");
         let mut option = String::new();
         io::stdin()
             .read_line(&mut option)
             .expect("Failed to read line.");
-        option = String::from(option.trim());
-        match option.as_str() {
-           "1" => { eq = 1; println!("{}Chosen: Linear Equation", {clearscreen}); break },
-           "2" => { eq = 2; println!("{}Chosen: Quadratic Equation", {clearscreen}); break },
-           "3" => { eq = 3; println!("{}Chosen: Cubic Equation", {clearscreen}); break },
-           "4" => { eq = 4; println!("{}Chosen: Quartic Equation", {clearscreen}); break },
+        match &*option{
+           "1" => {println!("{clearscreen}Chosen: Linear Equation"); break EquationType::Linear},
+           "2" => {println!("{clearscreen}Chosen: Quadratic Equation"); break EquationType::Quadratic},
+           "3" => {println!("{clearscreen}Chosen: Cubic Equation"); break EquationType::Cubic},
+           "4" => {println!("{clearscreen}Chosen: Quartic Equation"); break EquationType::Quartic},
            _ => {println!("{option} is not an option!");
                 continue}
         };
-    }
+    };
     
-    if eq == 1 {
-        let sol = linear();
-        println!("Solution to linear equation is: {sol}")
-    } else if eq == 2 {
-        let sol = quad();
-        print_sols(sol);
-    } else if eq == 3 {
-        let sol = cubic();
-        print_sols(sol);
-    } else if eq == 4 {
-        let sol = quartic();
-        print_sols(sol);
-    } else { 
-        println!("Failed")
+    match eq {
+        EquationType::Linear => { let sol = linear();
+            println!("Solution to linear equation is: {sol}")},
+        EquationType::Quadratic => {let sol = quad();
+            print_sols(sol) }
+        EquationType::Cubic => {let sol = cubic();
+            print_sols(sol);}
+        EquationType::Quartic => {let sol = quartic();
+            print_sols(sol);}
     }
 }
