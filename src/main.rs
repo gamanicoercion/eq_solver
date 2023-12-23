@@ -70,7 +70,7 @@ fn main() {
             .read_line(&mut option)
             .expect("Failed to read line.");
         match &*option.trim(){
-           "1" => {clearscreen::clear().expect("failed to clear screen");println!("Chosen: Linear Equation"); break EquationType::Linear},
+           "1" => {clearscreen::clear().expect("failed to clear screen"); println!("Chosen: Linear Equation"); break EquationType::Linear},
            "2" => {clearscreen::clear().expect("failed to clear screen"); println!("Chosen: Quadratic Equation"); break EquationType::Quadratic},
            "3" => {clearscreen::clear().expect("failed to clear screen"); println!("Chosen: Cubic Equation"); break EquationType::Cubic},
            "4" => {clearscreen::clear().expect("failed to clear screen"); println!("Chosen: Quartic Equation"); break EquationType::Quartic},
