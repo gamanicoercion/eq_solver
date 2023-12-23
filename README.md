@@ -1,1 +1,1 @@
-First small-ish project in Rust!
+First (very) small project in Rust!
