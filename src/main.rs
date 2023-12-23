@@ -1,5 +1,6 @@
 use std::io;
 use roots::Roots;
+use clearscreen;
 
 enum EquationType {
     Linear,
@@ -62,18 +63,17 @@ fn print_sols(sol: Roots<f64>) {
 }
 
 fn main() {
-    let clearscreen = "\x1b[2J";
     let eq = loop {
         println!("Enter a number!\n1: Linear\n2: Quadratic\n3: Cubic\n4: Quartic");
         let mut option = String::new();
         io::stdin()
             .read_line(&mut option)
             .expect("Failed to read line.");
-        match &*option{
-           "1" => {println!("{clearscreen}Chosen: Linear Equation"); break EquationType::Linear},
-           "2" => {println!("{clearscreen}Chosen: Quadratic Equation"); break EquationType::Quadratic},
-           "3" => {println!("{clearscreen}Chosen: Cubic Equation"); break EquationType::Cubic},
-           "4" => {println!("{clearscreen}Chosen: Quartic Equation"); break EquationType::Quartic},
+        match &*option.trim(){
+           "1" => {clearscreen::clear().expect("failed to clear screen");println!("Chosen: Linear Equation"); break EquationType::Linear},
+           "2" => {clearscreen::clear().expect("failed to clear screen"); println!("Chosen: Quadratic Equation"); break EquationType::Quadratic},
+           "3" => {clearscreen::clear().expect("failed to clear screen"); println!("Chosen: Cubic Equation"); break EquationType::Cubic},
+           "4" => {clearscreen::clear().expect("failed to clear screen"); println!("Chosen: Quartic Equation"); break EquationType::Quartic},
            _ => {println!("{option} is not an option!");
                 continue}
         };
